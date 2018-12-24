@@ -2,9 +2,11 @@ import * as React from "react";
 import "./WeatherCard.css";
 
 function WeatherCard(props) {
+  const {day, weather} = props;
   return (
     <div className="card">
-      <p>{props.weatherType}</p>
+      <div>{day}</div>
+      <div>{weather}</div>
     </div>
   )
 }

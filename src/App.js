@@ -8,7 +8,7 @@ class App extends Component {
     return (
       <div className="App">
         <header>My weather app</header>
-        <WeatherScreen weatherType = "Sunny" />
+        <WeatherScreen/>
       </div>
     );
   }
