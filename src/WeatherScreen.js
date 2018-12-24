@@ -1,6 +1,9 @@
 import * as React from "react";
 import WeatherCard from "./WeatherCard";
-import "./WeatherScreen.css"
+import "./WeatherScreen.css";
+import Clock from "./Clock";
+
+const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"]
 
 const dummyWeatherData = [
   {
@@ -40,24 +43,20 @@ class WeatherScreen extends React.Component {
       date: new Date(),
       weeklyWeather: dummyWeatherData
     };
+    this.updateDate = this.updateDate.bind(this);
   }
 
-  componentDidMount() {
-    this.tick();
-  }
-
-  tick() {
-    setInterval(() => {
-      this.setState({date: new Date()})
-    }, 1000);
+  updateDate(newDate) {
+    this.setState({date: newDate});
   }
 
   render() {
+    const currentDay = dayOfWeek[this.state.date.getDay()];
     return (
       <div>
-        <p>Time: {this.state.date.toLocaleTimeString()}</p>
+        <Clock date={this.state.date} updateDate={this.updateDate} />
         <div className="weatherCardWrapper" >
-          {this.state.weeklyWeather.map(dayWeather => <WeatherCard key={`day-${dayWeather.day}`} {...dayWeather} />)}
+          {this.state.weeklyWeather.map(dayWeather => <WeatherCard key={`day-${dayWeather.day}`} currentDay={currentDay} {...dayWeather} />)}
         </div>
       </div>
     )
