@@ -2,6 +2,7 @@ import * as React from "react";
 import WeatherCard from "./WeatherCard";
 import "./WeatherScreen.css";
 import Clock from "./Clock";
+import ErrorBoundary from "./ErrorBoundary";
 
 const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"]
 
@@ -65,16 +66,18 @@ class WeatherScreen extends React.Component {
     const currentDay = dayOfWeek[this.state.date.getDay()];
     const {showDayInFull} = this.state;
     return (
-      <div>
-        <Clock date={this.state.date} updateDate={this.updateDate} />
-        <div className="weatherCardWrapper" >
-          {showDayInFull ? 
-            <WeatherCard key={`day-${showDayInFull.day}`} currentDay={currentDay} showFullScreen onClose={this.onClose} {...showDayInFull} />
-            :
-            this.state.weeklyWeather.map(dayWeather => <WeatherCard key={`day-${dayWeather.day}`} currentDay={currentDay} onClick={this.onClick} {...dayWeather} />)
-          }
+      <ErrorBoundary>
+        <div>
+          <Clock date={this.state.date} updateDate={this.updateDate} />
+          <div className="weatherCardWrapper" >
+            {showDayInFull ? 
+              <WeatherCard key={`day-${showDayInFull.day}`} currentDay={currentDay} showFullScreen onClose={this.onClose} {...showDayInFull} />
+              :
+              this.state.weeklyWeather.map(dayWeather => <WeatherCard key={`day-${dayWeather.day}`} currentDay={currentDay} onClick={this.onClick} {...dayWeather} />)
+            }
+          </div>
         </div>
-      </div>
+      </ErrorBoundary>
     )
   }
 
