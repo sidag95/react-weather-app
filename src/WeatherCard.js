@@ -1,5 +1,6 @@
 import * as React from "react";
 import "./WeatherCard.css";
+import WeatherCardBody from "./WeatherCardBody";
 
 const weatherToClassMap = {
   Sunny: "sunny",
@@ -17,9 +18,7 @@ function WeatherCard(props) {
       className={`card ${weatherToClassMap[weather]} ${isCurrentDay ? "active" : ""} ${showFullScreen ? "fullScreen" : ""}`}
       onClick = {_ => onClick ? onClick({day, weather}) : null}
     >
-      <div>{day}</div>
-      <div>{weather}</div>
-      {onClose ? <button onClick={_ => onClose()}>Close</button> : null }
+      <WeatherCardBody day={day} weather={weather} onClose={onClose} />
     </div>
   )
 }
