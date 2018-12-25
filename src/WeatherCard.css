@@ -9,3 +9,8 @@
 .active {
   background-color: blue;
 }
+
+.fullScreen {
+  width: 1000px;
+  height: 800px;
+}

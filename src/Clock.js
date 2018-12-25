@@ -7,12 +7,11 @@ class Clock extends React.Component {
 
   tick() {
     setInterval(() => {
-      // this.props.updateDate(new Date());
+      this.props.updateDate(new Date());
     }, 1000);
   }
 
   render() {
-    console.log(this.props)
     return (
       <div className="clock">{this.props.date.toLocaleTimeString()}</div>
     )

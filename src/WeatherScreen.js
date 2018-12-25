@@ -41,7 +41,8 @@ class WeatherScreen extends React.Component {
     super(props)
     this.state = {
       date: new Date(),
-      weeklyWeather: dummyWeatherData
+      weeklyWeather: dummyWeatherData,
+      showDayInFull: null
     };
     this.updateDate = this.updateDate.bind(this);
   }
@@ -52,11 +53,16 @@ class WeatherScreen extends React.Component {
 
   render() {
     const currentDay = dayOfWeek[this.state.date.getDay()];
+    const {showDayInFull} = this.state;
     return (
       <div>
         <Clock date={this.state.date} updateDate={this.updateDate} />
         <div className="weatherCardWrapper" >
-          {this.state.weeklyWeather.map(dayWeather => <WeatherCard key={`day-${dayWeather.day}`} currentDay={currentDay} {...dayWeather} />)}
+          {showDayInFull ? 
+            <WeatherCard key={`day-${showDayInFull.day}`} currentDay={currentDay} showFullScreen {...showDayInFull} />
+            :
+            this.state.weeklyWeather.map(dayWeather => <WeatherCard key={`day-${dayWeather.day}`} currentDay={currentDay} {...dayWeather} />)
+          }
         </div>
       </div>
     )
