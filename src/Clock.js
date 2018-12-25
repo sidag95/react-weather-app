@@ -7,7 +7,8 @@ class Clock extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
-        date: new Date()
+        date: new Date(),
+        intervalId: null
       };
       this.updateDate = this.updateDate.bind(this)
     }
@@ -15,14 +16,19 @@ class Clock extends React.Component {
       this.tick();
     }
 
+    componentWillUnmount() {
+      clearInterval(this.state.intervalId);
+    }
+
     updateDate(newDate) {
       this.setState({date: newDate});
     }
 
     tick() {
-      setInterval(() => {
+      const intervalId = setInterval(() => {
         this.updateDate(new Date());
       }, 1000);
+      this.setState({intervalId})
     }
 
     render() {
