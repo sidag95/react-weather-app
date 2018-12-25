@@ -1,22 +1,38 @@
 import * as React from "react";
 import "./Clock.css";
 
-class Clock extends React.Component {
-  componentDidMount() {
-    this.tick();
-  }
+const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"]
 
-  tick() {
-    setInterval(() => {
-      this.props.updateDate(new Date());
-    }, 1000);
-  }
+function withClock(Component) {
+  return class Clock extends React.Component {
+    constructor(props) {
+      super(props)
+      this.state = {
+        date: new Date()
+      };
+      this.updateDate = this.updateDate.bind(this)
+    }
+    componentDidMount(props) {
+      this.tick();
+    }
 
-  render() {
-    return (
-      <div className="clock">{this.props.date.toLocaleTimeString()}</div>
-    )
+    updateDate(newDate) {
+      this.setState({date: newDate});
+    }
+
+    tick() {
+      setInterval(() => {
+        this.updateDate(new Date());
+      }, 1000);
+    }
+
+    render() {
+    const currentDay = dayOfWeek[this.state.date.getDay()];
+      return (
+        <Component {...this.props} currentTime = {this.state.date} currentDay={currentDay} />
+      )
+    }
   }
 }
 
-export default Clock
+export default withClock
