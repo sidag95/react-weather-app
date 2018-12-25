@@ -3,8 +3,7 @@ import "./Clock.css";
 
 const dayOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thrusday", "Friday", "Saturday"]
 
-function withClock(Component) {
-  return class Clock extends React.Component {
+class Clock extends React.Component {
     constructor(props) {
       super(props)
       this.state = {
@@ -28,11 +27,8 @@ function withClock(Component) {
 
     render() {
     const currentDay = dayOfWeek[this.state.date.getDay()];
-      return (
-        <Component {...this.props} currentTime = {this.state.date} currentDay={currentDay} />
-      )
-    }
+    return this.props.children({currentTime: this.state.date, currentDay})
   }
 }
 
-export default withClock
+export default Clock

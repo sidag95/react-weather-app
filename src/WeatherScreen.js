@@ -1,7 +1,7 @@
 import * as React from "react";
 import WeatherCard from "./WeatherCard";
 import "./WeatherScreen.css";
-import withClock from "./Clock";
+import Clock from "./Clock";
 import ErrorBoundary from "./ErrorBoundary";
 
 const dummyWeatherData = [
@@ -56,16 +56,37 @@ class WeatherScreen extends React.Component {
   }
 
   render() {
-    const WeatherCardWithClock = withClock(WeatherCard);
     const {showDayInFull} = this.state;
     return (
       <ErrorBoundary>
         <div>
           <div className="weatherCardWrapper" >
-            {showDayInFull ? 
-              <WeatherCardWithClock key={`day-${showDayInFull.day}`} showFullScreen onClose={this.onClose} {...showDayInFull} />
+            {showDayInFull ? (
+              <Clock>
+                {({currentTime, currentDay}) => (
+                  <WeatherCard 
+                    key={`day-${showDayInFull.day}`} 
+                    showFullScreen onClose={this.onClose} 
+                    {...showDayInFull} 
+                    currentDay={currentDay}
+                    currentTime={currentTime}
+                  />
+                )}
+              </Clock>
+            )
               :
-              this.state.weeklyWeather.map(dayWeather => <WeatherCardWithClock key={`day-${dayWeather.day}`} onClick={this.onClick} {...dayWeather} />)
+              this.state.weeklyWeather.map(dayWeather => (
+                <Clock key={`day-${dayWeather.day}`} >
+                  {({currentTime, currentDay}) => (
+                    <WeatherCard 
+                      onClick={this.onClick} 
+                      {...dayWeather} 
+                      currentDay={currentDay}
+                      currentTime={currentTime}
+                    />
+                  )}
+                </Clock>
+              ))
             }
           </div>
         </div>
