@@ -4,55 +4,44 @@ import "./WeatherScreen.css";
 import Clock from "./Clock";
 import ErrorBoundary from "./ErrorBoundary";
 
-const dummyWeatherData = [
-  {
-    day: "Sunday",
-    weather: "Sunny"
-  },
-  {
-    day: "Monday",
-    weather: "Sunny"
-  },
-  {
-    day: "Tuesday",
-    weather: "Overcast"
-  },
-  {
-    day: "Wednesday",
-    weather: "Cloudy"
-  },
-  {
-    day: "Thrusday",
-    weather: "Cloudy"
-  },
-  {
-    day: "Friday",
-    weather: "Rainy"
-  },
-  {
-    day: "Saturday",
-    weather: "Rainy"
-  }
-]
-
 class WeatherScreen extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       date: new Date(),
-      weeklyWeather: dummyWeatherData,
+      weeklyWeather: [],
       showDayInFull: null
     };
     this.onClick = this.onClick.bind(this);
     this.onClose = this.onClose.bind(this);
   }
 
+  static getDerivedStateFromProps(props, prevState) {
+    let updatedState = {...prevState}
+    const {data, location} = props
+    if (data !== prevState.data) {
+      updatedState = {...updatedState, weeklyWeather: props.data}
+    }
+    if (location && location.search) {
+      const day = location.search.split("=")[1]
+      if (data) {
+        const dayWeather = data.find(item => item.day.toLowerCase() === day.toLowerCase())
+        updatedState = {...updatedState, showDayInFull: dayWeather}
+      }
+    }
+    return updatedState
+  }
+
   onClick(dayWeather) {
     this.setState({showDayInFull: dayWeather});
+    const {history} = this.props
+    history.push(`/weather?day=${dayWeather.day}`);
   }
 
   onClose() {
     this.setState({showDayInFull: null});
+    const {history} = this.props
+    history.push("/weather");
   }
 
   render() {
@@ -66,32 +55,35 @@ class WeatherScreen extends React.Component {
                 {({currentTime, currentDay}) => (
                   <WeatherCard 
                     key={`day-${showDayInFull.day}`} 
-                    showFullScreen onClose={this.onClose} 
+                    showFullScreen 
+                    onClose={this.onClose} 
                     {...showDayInFull} 
                     currentDay={currentDay}
                     currentTime={currentTime}
-                  />
-                )}
+                  />)
+                }
               </Clock>
             )
-              :
-              this.state.weeklyWeather.map(dayWeather => (
+            :
+              this.state.weeklyWeather.map(
+                dayWeather => (
                 <Clock key={`day-${dayWeather.day}`} >
                   {({currentTime, currentDay}) => (
                     <WeatherCard 
-                      onClick={this.onClick} 
-                      {...dayWeather} 
+                      {...dayWeather}
                       currentDay={currentDay}
                       currentTime={currentTime}
-                    />
-                  )}
+                      onClick={this.onClick}
+                    />)
+                  }
                 </Clock>
-              ))
+              )
+            )
             }
           </div>
         </div>
       </ErrorBoundary>
-    )
+    );
   }
 }
 
