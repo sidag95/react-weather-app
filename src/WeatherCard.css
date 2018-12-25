@@ -1,10 +1,12 @@
 .card {
   width: 200px;
   height: 200px;
-  background-color: black;
-  color: white;
-  margin: 10px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 }
+
 
 .active {
   background-color: blue;
@@ -13,4 +15,24 @@
 .fullScreen {
   width: 1000px;
   height: 800px;
+}
+
+.sunny {
+  background-color: #F2F27A;
+}
+
+.overcast {
+  background-color: #A9A9A9;
+}
+
+.cloudy {
+  background-color: #f0f5d8;
+}
+
+.rainy {
+  background-color: #d3e4ec;
+}
+
+.card > div {
+  margin: auto;
 }
