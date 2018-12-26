@@ -1,8 +1,8 @@
 import * as React from "react";
 import WeatherCard from "./WeatherCard";
 import "./WeatherScreen.css";
-import Clock from "./Clock";
 import ErrorBoundary from "./ErrorBoundary";
+import ClockContext from "./ClockContext";
 
 class WeatherScreen extends React.Component {
   constructor(props) {
@@ -48,40 +48,29 @@ class WeatherScreen extends React.Component {
     const {showDayInFull} = this.state;
     return (
       <ErrorBoundary>
-        <div>
+        <ClockContext.Provider>
           <div className="weatherCardWrapper" >
             {showDayInFull ? (
-              <Clock>
-                {({currentTime, currentDay}) => (
-                  <WeatherCard 
-                    key={`day-${showDayInFull.day}`} 
-                    showFullScreen 
-                    onClose={this.onClose} 
-                    {...showDayInFull} 
-                    currentDay={currentDay}
-                    currentTime={currentTime}
-                  />)
-                }
-              </Clock>
-            )
+                <WeatherCard 
+                  key={`day-${showDayInFull.day}`} 
+                  showFullScreen 
+                  onClose={this.onClose} 
+                  {...showDayInFull}
+                />
+              )
             :
               this.state.weeklyWeather.map(
                 dayWeather => (
-                <Clock key={`day-${dayWeather.day}`} >
-                  {({currentTime, currentDay}) => (
-                    <WeatherCard 
-                      {...dayWeather}
-                      currentDay={currentDay}
-                      currentTime={currentTime}
-                      onClick={this.onClick}
-                    />)
-                  }
-                </Clock>
+                  <WeatherCard 
+                    key = {`day-${dayWeather.day}`}
+                    {...dayWeather}
+                    onClick={this.onClick}
+                  />
+                )
               )
-            )
             }
           </div>
-        </div>
+        </ClockContext.Provider>
       </ErrorBoundary>
     );
   }
