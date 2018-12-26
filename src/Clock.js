@@ -10,10 +10,11 @@ class Clock extends React.Component {
         date: new Date(),
         intervalId: null
       };
-      this.updateDate = this.updateDate.bind(this)
+      this.updateDate = this.updateDate.bind(this);
     }
-    componentDidMount(props) {
-      this.tick();
+
+    componentDidMount() {
+      this.tick()
     }
 
     componentWillUnmount() {
@@ -32,9 +33,9 @@ class Clock extends React.Component {
     }
 
     render() {
-    const currentDay = dayOfWeek[this.state.date.getDay()];
-    return this.props.children({currentTime: this.state.date, currentDay})
+      const currentDay = dayOfWeek[this.state.date.getDay()];
+      return this.props.children({currentTime: this.state.date, currentDay})
+    }
   }
-}
 
 export default Clock

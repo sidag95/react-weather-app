@@ -1,5 +1,5 @@
 import * as React from "react";
-import "./WeatherCard.css";
+import "./WeatherCard.css"
 import WeatherCardBody from "./WeatherCardBody";
 
 const weatherToClassMap = {
@@ -11,17 +11,16 @@ const weatherToClassMap = {
 
 function WeatherCard(props) {
   const {day, weather, currentDay, showFullScreen, onClick, onClose, currentTime} = props;
-  console.log(showFullScreen)
   const isCurrentDay = day === currentDay;
   return (
     <div 
-      className={`card ${weatherToClassMap[weather]} ${isCurrentDay ? "active" : ""} ${showFullScreen ? "fullScreen" : ""}`}
+      className= {`card ${weatherToClassMap[weather]} ${isCurrentDay ? "active" : ""} ${showFullScreen ? "fullScreen" : ""}`} 
       onClick = {_ => onClick ? onClick({day, weather}) : null}
     >
       <div>{currentTime.toLocaleTimeString()}</div>
-      <WeatherCardBody day={day} weather={weather} onClose={onClose} />
+      <WeatherCardBody day={day} weather={weather} onClose={onClose} renderError />
     </div>
-  )
+  );
 }
 
-export default WeatherCard
+export default WeatherCard;
