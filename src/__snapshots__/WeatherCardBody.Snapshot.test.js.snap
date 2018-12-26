@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WeatherCardBody Snapshot 1`] = `
+Array [
+  <div>
+    day
+  </div>,
+  <div>
+    weather
+  </div>,
+]
+`;
