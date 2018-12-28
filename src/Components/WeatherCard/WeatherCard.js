@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./WeatherCard.css"
-import WeatherCardBody from "./WeatherCardBody";
-import ClockContext from "./ClockContext";
+import WeatherCardBody from "../WeatherCardBody/WeatherCardBody";
+import ClockContext from "../Clock/ClockContext";
 
 const weatherToClassMap = {
   Sunny: "sunny",

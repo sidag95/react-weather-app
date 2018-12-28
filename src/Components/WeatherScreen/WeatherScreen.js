@@ -1,8 +1,8 @@
 import * as React from "react";
-import WeatherCard from "./WeatherCard";
+import WeatherCard from "../WeatherCard/WeatherCard";
 import "./WeatherScreen.css";
-import ErrorBoundary from "./ErrorBoundary";
-import ClockContext from "./ClockContext";
+import ErrorBoundary from "../ErrorBoundary";
+import ClockContext from "../Clock/ClockContext";
 
 class WeatherScreen extends React.Component {
   constructor(props) {

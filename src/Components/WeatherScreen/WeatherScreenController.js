@@ -1,5 +1,5 @@
 import * as React from "react";
-import Api from "./MockApi"
+import Api from "../../MockApi"
 import WeatherScreen from "./WeatherScreen";
 
 class Controller extends React.Component {
