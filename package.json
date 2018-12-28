@@ -24,6 +24,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "flow-bin": "^0.89.0",
     "react-test-renderer": "^16.7.0"
   }
 }
