@@ -12,8 +12,9 @@
 }
 
 .fullScreen {
-  width: 1000px;
-  height: 800px;
+  width: 500px;
+  height: 100px;
+  margin: 30px auto;
 }
 
 .sunny {
@@ -34,4 +35,10 @@
 
 .card > div {
   margin: auto;
+}
+
+.card > button {
+  height: 20px;
+  border-radius: 10px;
+  margin: 15px;
 }

@@ -49,26 +49,38 @@ class WeatherScreen extends React.Component {
     return (
       <ErrorBoundary>
         <ClockContext.Provider>
-          <div className="weatherCardWrapper" >
-            {showDayInFull ? (
-                <WeatherCard 
-                  key={`day-${showDayInFull.day}`} 
-                  showFullScreen 
-                  onClose={this.onClose} 
-                  {...showDayInFull}
-                />
-              )
-            :
-              this.state.weeklyWeather.map(
-                dayWeather => (
+          <div className="weatherScreen">
+            <div className="weatherScreenClock">
+              <ClockContext.Consumer>
+                {({currentTime}) => <div>{currentTime.toLocaleTimeString()}</div>}
+              </ClockContext.Consumer>
+            </div>
+            <div className="weatherScreenCards">
+              <div className="weatherCardWrapper" >
+                {
+                  this.state.weeklyWeather.map(
+                    dayWeather => (
+                      <WeatherCard 
+                        key={`day-${dayWeather.day}`}
+                        {...dayWeather}
+                        onClick={this.onClick}
+                      />
+                    )
+                  )
+                }
+              </div>
+              {
+                showDayInFull ? (
                   <WeatherCard 
-                    key = {`day-${dayWeather.day}`}
-                    {...dayWeather}
-                    onClick={this.onClick}
+                    key={`day-${showDayInFull.day}`} 
+                    showFullScreen 
+                    onClose={this.onClose} 
+                    {...showDayInFull} 
                   />
                 )
-              )
-            }
+                : null
+              }
+            </div>
           </div>
         </ClockContext.Provider>
       </ErrorBoundary>

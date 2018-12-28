@@ -11,19 +11,17 @@ const weatherToClassMap = {
 }
 
 function WeatherCard(props) {
-  const {day, weather, showFullScreen, onClick, onClose} = props;
+  const {day, weather, showFullScreen, onClick, onClose, low, high} = props;
   return (
     <ClockContext.Consumer>
-      {({currentDay, currentTime}) => (
-          <div 
-            className= {`card ${weatherToClassMap[weather]} ${day === currentDay ? "active" : ""} ${showFullScreen ? "fullScreen" : ""}`} 
-            onClick = {_ => onClick ? onClick({day, weather}) : null}
-          >
-            <div>{currentTime.toLocaleTimeString()}</div>
-            <WeatherCardBody day={day} weather={weather} onClose={onClose} renderError />
-          </div>
-        )
-      }
+      {({currentDay}) => (
+        <div 
+          className= {`card ${weatherToClassMap[weather]} ${day === currentDay ? "active" : ""} ${showFullScreen ? "fullScreen" : ""}`} 
+          onClick = {_ => onClick ? onClick({day, weather}) : null}
+        >
+          <WeatherCardBody day={day} weather={weather} onClose={onClose} low={showFullScreen ? low : ""} high={showFullScreen ? high : ""} renderError />
+        </div>
+      )}
     </ClockContext.Consumer>
   );
 }

@@ -1,32 +1,46 @@
 const data = [
-{
-day: "Sunday",
-weather: "Sunny"
-},
-{
-day: "Monday",
-weather: "Sunny"
-},
-{
-day: "Tuesday",
-weather: "Overcast"
-},
-{
-day: "Wednesday",
-weather: "Cloudy"
-},
-{
-day: "Thrusday",
-weather: "Cloudy"
-},
-{
-day: "Friday",
-weather: "Rainy"
-},
-{
-day: "Saturday",
-weather: "Rainy"
-}
+  {
+    day: "Sunday",
+    weather: "Sunny",
+    low: 29,
+    high: 42
+  },
+  {
+    day: "Monday",
+    weather: "Sunny",
+    low: 29,
+    high: 40
+  },
+  {
+    day: "Tuesday",
+    weather: "Overcast",
+    low: 23,
+    high: 37
+  },
+  {
+    day: "Wednesday",
+    weather: "Cloudy",
+    low: 20,
+    high: 30
+  },
+  {
+    day: "Thrusday",
+    weather: "Cloudy",
+    low: 21,
+    high: 29
+  },
+  {
+    day: "Friday",
+    weather: "Rainy",
+    low: 19,
+    high: 25
+  },
+  {
+    day: "Saturday",
+    weather: "Rainy",
+    low: 19,
+    high: 24
+  }
 ]
 
 function Api(props) {
